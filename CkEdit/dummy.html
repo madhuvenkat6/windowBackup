@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.js"></script>
+</head>
+
+<body>
+    if&nbsp;<span class="mq-math-mode"><span class="mq-selectable">$x+y=20$</span><span
+            class="mq-root-block mq-hasCursor" mathquill-block-id="157"><var mathquill-command-id="158">x</var><span
+                mathquill-command-id="160" class="mq-binary-operator">+</span><var
+                mathquill-command-id="162">y</var><span class="mq-binary-operator"
+                mathquill-command-id="164">=</span><span mathquill-command-id="166">2</span><span
+                mathquill-command-id="168">0</span><span class="mq-cursor">​</span></span></span> then&nbsp;<span
+        title="x-y=30" class="mq-editable-field mq-math-mode"><span class="mq-textarea"><textarea autocapitalize="off"
+                autocomplete="off" autocorrect="off" spellcheck="false"
+                x-palm-disable-ste-all="true"></textarea></span><span class="mq-root-block"
+            mathquill-block-id="170"><var mathquill-command-id="171">x</var><span mathquill-command-id="173"
+                class="mq-binary-operator">−</span><var mathquill-command-id="175">y</var><span
+                class="mq-binary-operator" mathquill-command-id="183">=</span></span></span>
+    <div id="parse"></div>
+</body>
+
+</html>
+<script>
+    //var MQ = MathQuill.getInterface(2);
+    //var MQ = MathQuill.noConflict().getInterface(2)
+    //let data = "<div id=\"preview\" style=\"border: 1px solid black; min-height: 80px;\">hey hii&nbsp;<span class=\"mq-math-mode\"><span class=\"mq-selectable\">$a+b=c$</span><span class=\"mq-root-block mq-hasCursor\" mathquill-block-id=\"113\"><var mathquill-command-id=\"114\">a</var><span mathquill-command-id=\"116\" class=\"mq-binary-operator\">+</span><var mathquill-command-id=\"118\">b</var><span class=\"mq-binary-operator\" mathquill-command-id=\"120\">=</span><var mathquill-command-id=\"122\">c</var><span class=\"mq-cursor\">​</span></span></span> then&nbsp;<span title=\"x-y=24\" class=\"mq-editable-field mq-math-mode\"><span class=\"mq-textarea\"><textarea></textarea></span><span class=\"mq-root-block\" mathquill-block-id=\"124\"><var mathquill-command-id=\"125\">x</var><span mathquill-command-id=\"127\" class=\"mq-binary-operator\">−</span><var mathquill-command-id=\"129\">y</var><span class=\"mq-binary-operator\" mathquill-command-id=\"131\">=</span><span mathquill-command-id=\"133\">2</span><span mathquill-command-id=\"135\">4</span></span></span></div>"
+    //let data = "<div id=\"preview\" style=\"border: 1px solid black; min-height: 80px;\">if a+y=10 then <span class=\"mathImg mathquill-rendered-math mq-editable-field mq-math-mode\" title=\"2a+2b=20\"><span class=\"mq-textarea\"><textarea></textarea></span><span class=\"mq-root-block mq-empty\" mathquill-block-id=\"5\"></span></span></div>"
+    //let data = "<div id=\"preview\" style=\"border: none; min-height: 80px;\">if&nbsp;<span class=\"mq-math-mode\"><span class=\"mq-selectable\">$x+y=20$</span><span class=\"mq-root-block mq-hasCursor\" mathquill-block-id=\"135\"><var mathquill-command-id=\"136\">x</var><span mathquill-command-id=\"138\" class=\"mq-binary-operator\">+</span><var mathquill-command-id=\"140\">y</var><span class=\"mq-binary-operator\" mathquill-command-id=\"142\">=</span><span mathquill-command-id=\"144\">2</span><span mathquill-command-id=\"146\">0</span><span class=\"mq-cursor\">​</span></span></span> then&nbsp;<span class=\"mathImg mathquill-rendered-math mq-editable-field mq-math-mode\" title=\"2x+2y=30\"><span class=\"mq-textarea\"><textarea></textarea></span><span class=\"mq-root-block\" mathquill-block-id=\"148\"><span mathquill-command-id=\"149\">2</span><var mathquill-command-id=\"151\">x</var><span mathquill-command-id=\"153\" class=\"mq-binary-operator\">+</span><span mathquill-command-id=\"155\">2</span><var mathquill-command-id=\"157\">y</var><span class=\"mq-binary-operator\" mathquill-command-id=\"159\">=</span><span mathquill-command-id=\"161\">3</span><span mathquill-command-id=\"163\">0</span></span></span></div>"
+    //let data = "<div id=\"preview\" style=\"border: none; min-height: 80px;\"><span class=\"mathImg mathquill-rendered-math mq-editable-field mq-math-mode\" title=\"a+b=20\"><span class=\"mq-textarea\"><textarea autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" spellcheck=\"false\" x-palm-disable-ste-all=\"true\"></textarea></span><span class=\"mq-root-block\" mathquill-block-id=\"472\"><var mathquill-command-id=\"473\">a</var><span mathquill-command-id=\"475\" class=\"mq-binary-operator\">+</span><var mathquill-command-id=\"477\">b</var><span class=\"mq-binary-operator\" mathquill-command-id=\"479\">=</span><span mathquill-command-id=\"481\">2</span><span mathquill-command-id=\"483\">0</span></span></span> is a equation please edit</div>"
+   // let data="<div id=\"preview\" style=\"border: none; min-height: 80px;\"><span class=\"mathImg mathquill-rendered-math mq-editable-field mq-math-mode\" title=\"x+y=20\"><span class=\"mq-textarea\"><textarea autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" spellcheck=\"false\" x-palm-disable-ste-all=\"true\"></textarea></span><span class=\"mq-root-block\" mathquill-block-id=\"14\"><var mathquill-command-id=\"15\">x</var><span mathquill-command-id=\"17\" class=\"mq-binary-operator\">+</span><span mathquill-command-id=\"27\">7</span><span class=\"mq-binary-operator\" mathquill-command-id=\"21\">=</span><span mathquill-command-id=\"23\">2</span><span mathquill-command-id=\"25\">0</span></span></span></div>"
+  let data = "<div id=\"preview\" style=\"border: none; min-height: 80px;\">if&nbsp;<span class=\"mq-math-mode\"><span class=\"mq-selectable\">$x+y=20$</span><span class=\"mq-root-block mq-hasCursor\" mathquill-block-id=\"843\"><var mathquill-command-id=\"844\">x</var><span mathquill-command-id=\"846\" class=\"mq-binary-operator\">+</span><var mathquill-command-id=\"848\">y</var><span class=\"mq-binary-operator\" mathquill-command-id=\"850\">=</span><span mathquill-command-id=\"852\">2</span><span mathquill-command-id=\"854\">0</span><span class=\"mq-cursor\">​</span></span></span> and&nbsp;<span class=\"mq-math-mode\"><span class=\"mq-selectable\">$x-y=10$</span><span class=\"mq-root-block mq-hasCursor\" mathquill-block-id=\"856\"><var mathquill-command-id=\"857\">x</var><span mathquill-command-id=\"859\" class=\"mq-binary-operator\">−</span><var mathquill-command-id=\"861\">y</var><span class=\"mq-binary-operator\" mathquill-command-id=\"863\">=</span><span mathquill-command-id=\"865\">1</span><span mathquill-command-id=\"867\">0</span><span class=\"mq-cursor\">​</span></span></span> then&nbsp;<span class=\"mq-math-mode\"><span class=\"mq-selectable\">$2x=$</span><span class=\"mq-root-block mq-hasCursor\" mathquill-block-id=\"869\"><span mathquill-command-id=\"870\">2</span><var mathquill-command-id=\"872\">x</var><span class=\"mq-binary-operator\" mathquill-command-id=\"874\">=</span><span class=\"mq-cursor\">​</span></span></span><span class=\"mathImg mathquill-rendered-math mq-editable-field mq-math-mode\" contenteditable=\"true\" title=\"30\" style=\"min-width: 20px;\"><span class=\"mq-textarea\"><textarea autocapitalize=\"off\" autocomplete=\"off\" autocorrect=\"off\" spellcheck=\"false\" x-palm-disable-ste-all=\"true\"></textarea></span><span class=\"mq-root-block mq-empty\" mathquill-block-id=\"876\"></span></span></div>"  
+   console.log(data)
+    $("#parse").append($.parseHTML(data));
+    
+    // var mathQuillField =  $(".mq-editable-field");
+
+    // var mathQuillEditor = MQ.MathField(mathQuillField, {
+    //     spaceBehavesLikeTab: true,
+    //     handlers: {
+    //         edit: function () {
+    //             mathQuillEditor.focus();
+    //            // latexEditor.value = mathQuillEditor.latex(); // update LaTeX field
+    //             //jQuery(latexEditor).change(); // fire updating of CodeCogs
+    //         }
+    //     }
+    // });
+</script>

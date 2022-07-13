@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Setting editor UI language</title>
+    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.js"></script>
+</head>
+
+<body>
+    <div id="preview" style="border: 1px solid black; min-height: 80px;">
+
+    </div>
+    <textarea cols="80" rows="10" id="editor1" name="editor1"></textarea>
+
+
+    <div style="border: 1px solid black; height: 30%;box-sizing:border-box">
+        <button onclick="openEditor()">Math Equation</button>
+    </div>
+
+
+    <div id="mathEditor" style="border: 1px solid black; height: 400px; width: 300px; visibility: hidden;">
+        <textarea id="mathTextArea" style="height: 70%; width: 100%; box-sizing:border-box"
+            oninput=" expression(event)"></textarea>
+        <!-- <textarea  style="height: 20%; width: 100%; box-sizing:border-box" readonly></textarea> -->
+        <div id="mathPreview" style="height: 20%; border: 1px solid black; width: 100%;"></div>
+        <div>
+            <input type="checkbox" id="isEditable" value="false" />
+            <button onclick="clicked('ok')">Ok</button>
+            <button onclick="clicked('cancle')">Cancle</button>
+        </div>
+
+    </div>
+    <button onclick="see()">see preview</button>
+    <button onclick="checkCkEditorData()">PreviewForCk</button>
+
+</body>
+<script>
+    let str = ""
+    let isPreviewQuestionChanging = false
+    let previewQuestionLatex = '';
+    var count = 0;
+    var MQ = MathQuill.getInterface(2);
+    var editor = CKEDITOR.replace('editor1');
+
+    function addMathEquationsInCkEItself(htmlContent) {
+        console.log("In a function", htmlContent);
+        let arrOfLatexs = []
+
+        for (let i = 0; i < htmlContent.length; i++) {
+            if (htmlContent[i] === '$') {
+                let arr = []
+                let j = i + 1;
+                while (htmlContent[j] !== '$') {
+                    arr += htmlContent[j];
+                    j++;
+                }
+                arrOfLatexs.push(arr)
+                i = j;
+            }
+        }
+
+        console.log(arrOfLatexs);
+
+        let arrOfStaticObjs = []
+
+        for (let i = 0; i < arrOfLatexs.length; i++) {
+            var problemSpan = document.createElement('span')
+            problemSpan.innerHTML = arrOfLatexs[i]
+            MQ.StaticMath(problemSpan)
+            problemSpan.addEventListener('click', (e) => {
+                console.log("ndfjbfjbdfhbh");
+            })
+
+            let dummy = document.createElement('span')
+            dummy.appendChild(problemSpan)
+            arrOfStaticObjs.push(dummy)
+        }
+        console.log(arrOfStaticObjs);
+
+        for (let i = 0; i < arrOfStaticObjs.length; i++) {
+            //arrOfStaticObjs[i].innerHTML
+            let dummy = document.createElement('span')
+            let Span = document.createElement('span')
+            Span.className = 'mq-math-mode'
+            Span.innerHTML = arrOfStaticObjs[i].innerHTML;
+            dummy.appendChild(arrOfStaticObjs[i])
+            console.log(Span);
+            htmlContent = htmlContent.replace("$" + arrOfLatexs[i] + "$", arrOfStaticObjs[i].innerHTML)
+        }
+
+        console.log(htmlContent);
+        document.getElementById("preview").innerHTML = ''
+        document.getElementById("preview").innerHTML = htmlContent;
+    }
+
+    CKEDITOR.instances.editor1.on('change', function () {
+        let htmlContent = CKEDITOR.instances.editor1.getData()
+        document.getElementById("preview").innerHTML = htmlContent;
+        // $('#preview').html(CKEDITOR.instances.editor1.getData())
+        //    $('#preview').append(CKEDITOR.instances.editor1.getData())
+        console.log("Before call");
+        call()
+        //addMathEquationsInCkEItself(htmlContent)
+    });
+
+
+    $.fn.ignore = function (sel) {
+        return this.clone().find(sel || ">*").remove().end();
+    };
+
+    const serializeResponse = () => {
+        var element = document.getElementById('preview');
+        element.style.border = 'none'
+        var html = element.outerHTML;
+        var ques = { html: html };
+        var json = JSON.stringify(ques);
+        //console.log(json);
+        return json
+    }
+
+    function see() {
+        console.log($('#preview').html())
+        console.log(serializeResponse());
+        // console.log($('#preview').ignore('.mq-root-block').text())
+    }
+
+    function insertStaticMathMl(data) {
+        var problemSpan = document.createElement('span')
+        problemSpan.innerHTML = data
+        MQ.StaticMath(problemSpan)
+        problemSpan.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let latexEquation = $(e.target).closest(".mq-math-mode")[0].childNodes[0].innerHTML
+            console.log("heyyyyyyyyyyyyy!", latexEquation);
+            isPreviewQuestionChanging = true
+            changeFromQuestionPreview(latexEquation);
+        })
+        document.getElementById('preview').appendChild(problemSpan)
+    }
+
+    function insertDyanamicMathMl(data) {
+        let id = 'editableId' + count
+        var problemSpan = document.createElement('span')
+        problemSpan.classList.add("mathImg")
+        problemSpan.classList.add("mathquill-rendered-math")
+        problemSpan.setAttribute('contenteditable', "true");
+        problemSpan.style.minWidth = '20px';
+        problemSpan.setAttribute("title", data);
+        //mathImg mathquill-rendered-math
+        console.log(problemSpan, "In dyanamic", data);
+        var mathField = MQ.MathField(problemSpan, {
+            spaceBehavesLikeTab: true,
+        })
+        document.getElementById('preview').appendChild(problemSpan)
+    }
+
+
+    function previewContent() {
+        // let content = $('#preview').ignore('.mq-root-block').text()
+        let content = $(CKEDITOR.instances.editor1.getData()).text()
+      //let content = CKEDITOR.instances.editor1.getData()
+        document.getElementById('preview').innerHTML = ""
+        let latex = "";
+        let textContent = "";
+        let isThere = false;
+
+        for (let i = 0; i < content.length; i++) {
+
+            if (content[i] === '$') {
+                document.getElementById('preview').append(textContent)
+                textContent = ""
+                let j = i + 1;
+                while (content[j] !== '$' && j < content.length) {
+                    latex += content[j]
+                    j++;
+                }
+                i = j;
+                insertStaticMathMl(latex)
+                latex = ""
+
+            }
+            // else if (content[i] === '%') {
+            //     document.getElementById('preview').append(textContent)
+            //     textContent = ""
+            //     let j = i + 1;
+            //     while (content[j] !== '%' && j < content.length) {
+            //         latex += content[j]
+            //         j++;
+            //     }
+            //     i = j;
+            //     insertDyanamicMathMl(latex)
+            //     latex = ""
+            // }
+            else {
+                textContent += content[i];
+            }
+        }
+        document.getElementById('preview').append(textContent);
+    }
+
+    function call() {
+        previewContent()
+        // let content = document.getElementById('preview').innerHTML;
+
+        // console.log("jndjidfn", content);
+
+    }
+
+    function openEditor() {
+        let isVisible = document.getElementById('mathEditor').style.visibility;
+        console.log('mathEditor', isVisible);
+        if (isVisible === 'hidden') {
+            document.getElementById('mathEditor').style.visibility = 'visible'
+        } else {
+            document.getElementById('mathEditor').style.visibility = 'hidden'
+        }
+
+    }
+
+
+    function toCreateStatic(isOk) {
+        //var content = $('#preview').ignore('.mq-hasCursor').text()
+        let content = $(CKEDITOR.instances.editor1.getData()).text()
+        insertStaticMathMl(str)
+        // CKEDITOR.instances['editor1'].setData(content + '$' + str + '$')
+        CKEDITOR.instances['editor1'].setData(content + str)
+    }
+
+    function toCreateDyanamic() {
+
+        //var content = $('#preview').ignore('.mq-hasCursor').text()
+        let content = $(CKEDITOR.instances.editor1.getData()).text()
+        insertDyanamicMathMl(str)
+        CKEDITOR.instances['editor1'].setData(content + '%' + str + '%')
+        count++;
+        console.log("Under Construction")
+    }
+
+    function clicked(isOk) {
+
+        if (isOk === 'ok' && str.length > 0 && !isPreviewQuestionChanging) {
+            if (!$('#isEditable').is(":checked")) {
+                toCreateStatic()
+            } else {
+                toCreateDyanamic()
+            }
+        } else if (isOk === 'ok' && isPreviewQuestionChanging) {
+            console.log(isPreviewQuestionChanging);
+            let content = $(CKEDITOR.instances.editor1.getData()).text()
+            console.log(content);
+            replaceContent(content, str)
+
+        } else {
+            document.getElementById('mathEditor').style.visibility = 'hidden'
+        }
+
+        str = "";
+        $('#mathTextArea').val("")
+        // $('#mathPreview').val("")
+        document.getElementById('mathPreview').innerHTML = ""
+        isPreviewQuestionChanging = false
+
+    }
+
+    function expression(e) {
+        str = "";
+        str = document.getElementById('mathTextArea').value;
+
+        if (str.length > 1) {
+            // var problemSpan = document.createElement('span')
+            // problemSpan.innerHTML = str.substring(1,str.length-1)
+            // MQ.StaticMath(problemSpan)
+            // document.getElementById('mathPreview').appendChild(problemSpan)
+
+            console.log(str);
+            console.log(str.split("$").filter((e) => e.length > 1 ? 1 : 0));
+
+            let arr = str.split("$").filter((e) => e.length > 1 ? 1 : 0)
+            let finalStr = ""
+
+            for (i = 0; i < arr.length; i++) {
+                finalStr += arr[i] + " ";
+            }
+            console.log(finalStr);
+            var Span = document.getElementById('mathPreview')
+            Span.innerHTML = finalStr
+            MQ.StaticMath(Span)
+        }
+
+    }
+
+    function replaceContent(str, rplStr, latex) {
+        console.log(str);
+        console.log(rplStr);
+        let content = str.replace(previewQuestionLatex, rplStr)
+        console.log(content);
+        previewQuestionLatex = ""
+        CKEDITOR.instances['editor1'].setData(content)
+    }
+
+    function changeFromQuestionPreview(latex) {
+        document.getElementById('mathEditor').style.visibility = 'visible'
+        document.getElementById('mathTextArea').value = latex
+        previewQuestionLatex = latex
+    }
+
+    function checkCkEditorData() {
+        let content = $(CKEDITOR.instances.editor1.getData()).text()
+        console.log("checkCkEditorData");
+        console.log(CKEDITOR.instances.editor1.getData());
+        console.log(content);
+    }
+</script>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Run Mathquill</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+</head>
+
+<body>
+    <p>Solve <span id="problem">f(x) = ax^2 + bx + c + \sqrt2 \pm 2= 0</span>.</p>
+    <p><span id="answer">x=</span></p>
+    <p><span id="mm"></span></p>
+    <textarea type="text" id="ta"><span>madhu venkat</span></textarea>
+    <input type="textarea" name="formula" id="test_formula" onkeyup="paste_formula()" />
+    <span id="formula_print"></span>
+</body>
+
+</html>
+<script>
+    var MQ = MathQuill.getInterface(2);
+
+    var problemSpan = document.getElementById('problem');
+    console.log(problemSpan);
+    MQ.StaticMath(problemSpan)
+    // console.log( MQ.StaticMath( f(x)=ax^2+bx+c+\sqrt{2}\pm2=0) );
+    // MQ.StaticMath(problemSpan);
+
+
+    var answerSpan = document.getElementById('answer');
+    var answerMathField = MQ.MathField(answerSpan, {
+        handlers: {
+            edit: function () {
+                var enteredMath = answerMathField.latex(); // Get entered math in LaTeX format
+                console.log(enteredMath);
+                document.getElementById('mm').innerText = (enteredMath)
+                MQ.StaticMath(document.getElementById('mm'))
+                document.getElementById('ta').innerText = enteredMath
+                MQ.StaticMath(document.getElementById("ta"))
+            }
+        }
+    });
+
+    function paste_formula() {
+        var val = document.getElementById("test_formula").value;
+
+        val = "$" + val + "$";
+        var di = document.getElementById("formula_print");
+
+        di.innerHTML = val;
+        M.parseMath(di);
+    }
+</script> -->

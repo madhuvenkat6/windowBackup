@@ -1,0 +1,77 @@
+.main{
+    /* height: 600px;
+    width: 200px; */
+    /* min-width: 150px; */
+    height: 100%;
+    border: 1px solid black;
+    background-color: rgb(184, 197, 192);
+    margin: auto;
+    /* box-sizing: border-box; */
+}
+#headSection{
+    /* border: 1px solid black; */
+    height: 6%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:0 4px 0 4px;
+
+}
+#bodySection{
+    border: 1px solid black;
+    height: 94%;
+    box-sizing: border-box;
+}
+
+#menuIcon:hover{
+    cursor: pointer;
+    width:25px;
+    background-color: aliceblue;
+}
+
+.pyfile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 0 8% 0 8%;
+}
+
+.pyfolder{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    border: 1px solid black;
+    padding: 0 5% 0 5%;
+}
+
+.pyOutterFolder{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    border: 1px solid black;
+    padding: 0 5% 0 5%;
+}
+
+.pyInnerFolder{
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    border: 1px solid black;
+    padding: 0 5% 0 5%;
+}
+
+.pyfolder:hover, .pyfile:hover,.pyInnerFolder:hover ,.pyOutterFolder:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+h4{
+    margin: 0%;
+    padding: 0%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

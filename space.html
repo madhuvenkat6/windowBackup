@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="space.css">
+</head>
+<body>
+  
+    <div id="space">
+        <div id="top">
+            <button style="background-color: rgb(226, 113, 43);">Back</button>
+            <div style="position: relative;">
+            <figure class="swing">
+                <img src="https://media.istockphoto.com/vectors/cartoon-wood-board-vector-id546453322?b=1&k=20&m=546453322&s=170667a&w=0&h=ymgaNjDzpTokJ-Juhl5tz-P3HVJoLOvjlQzvj9G2b2Y=" width="200" >
+              </figure>
+              <h1 class="midas-test ">MIDAS</h1>
+            </div>  
+            <div>
+                <button style="background-color: orange;">Skip</button>
+                <button style="background-color: blueviolet;">Submit</button>
+            </div>
+            
+        </div>
+        <div id="content">
+            <div id="qut"></div>
+            <div id="qutNo">
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="bowl">
+                        <div class="liquid"></div>
+                    </div>
+                </section>
+
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <img src="spaceMan-removebg-preview.png" alt="space man" class="spaceMan"/>
+    <!-- <img src="output-onlinegiftools.gif" alt="spc" class="spaceMan"/> -->
+<!-- <section>
+    <div class="bowl">
+        <div class="liquid"></div>
+    </div>
+</section> -->
+    <script>
+        for(let i=0;i<250;i++){
+            document.getElementById("space").innerHTML += `<div
+            class="stars" style="--x:${window.innerWidth*Math.random()};
+            --y:${window.innerHeight*Math.random()};"></div>`
+        }
+    </script>
+</body>
+</html>

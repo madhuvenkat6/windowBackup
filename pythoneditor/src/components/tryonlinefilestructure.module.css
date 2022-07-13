@@ -1,0 +1,118 @@
+#sideBar{
+    /* height: 600px;
+    width: 200px; */
+    height: 100%;
+    /* border: 1px solid black; */
+    /* margin: auto; */
+    /* overflow: scroll;
+    scroll-behavior: smooth; */
+    background-color: rgb(209, 250, 234);
+}
+
+#header{
+    height: 5%;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0% 5% 0% 5%;
+}
+
+#fileListWrapper{
+    /* height: 95%; */
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+}
+
+#fileList{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    margin: 0% 2% 0% 2%;
+    box-sizing: border-box;
+}
+
+.fileGroup{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    /* margin: 2% 2% 2% 2%; */
+    margin:2% 0% 2% 8%;
+    min-height: 20px;
+    position: relative;
+}
+
+.file:hover{
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+}
+
+.file{
+    /* border: 1px solid black; */
+    min-height: 20px;
+    display: flex;
+    padding: 0 1% 0 1%;
+    align-items: center;
+    /* justify-content: space-between; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.file > *{
+    padding: 0 2% 0% 2%;
+}
+
+.file > *:last-child{
+    position:absolute;
+    right: 0%;
+}
+
+.menuContext{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    min-height: 30px;
+    width: 120px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 4px rgb(151, 151, 151);
+    z-index: 100;
+    border-radius: 10%;
+}
+a{
+ text-decoration: none;
+ color: black;
+ padding-top: 5px;
+ padding-bottom: 10px;
+}
+a:hover{
+    background-color: rgb(209, 207, 207);
+    color: rgb(248, 61, 61);
+}
+span{
+    overflow: hidden;
+    text-align: left;
+}
+.extension{
+  background-color:rgb(52, 152, 219);
+  color: white;
+  font-size:large;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width: 30px;
+  height: 20px;
+  border-radius: 20%;
+  vertical-align:middle;
+}
+
+.modal{
+    height: 100px;
+    width: 300px;
+    border:2px solid #000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   
+}

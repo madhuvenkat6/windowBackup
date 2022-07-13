@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script> -->
+</head>
+
+<body>
+    <div>Math jax</div>
+    <div id="app">
+        $ \frac{n!}{k!(n-k)!} = \binom{n}{k} $
+        $x=ax^2+\sqrt{2}$
+        $\sqrt{2}$
+    </div>
+    <textarea id="txt" rows="5" cols="50" oninput=" mathData(event)"></textarea>
+    <div> $ x=ax^2+\sqrt{2} $</div>
+    <div style="border: 1px solid black; width: 400px; height: 100px;" id="dummyTextArea">Madhu</div>
+    <div id="text"></div>
+    <button onclick="go()">click me</button>
+</body>
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [
+                ["$", "$"],
+                ["\\(", "\\)"]
+            ]
+        }
+    };
+
+
+    function mathData(e) {
+        console.log("typing", e.data);
+        document.getElementById('dummyTextArea').appendChild(document.createTextNode(e.data))
+
+    }
+
+    function go(params) {
+        console.log("clicked");
+        document.getElementById('dummyTextArea').innerHTML = document.getElementById('dummyTextArea').innerHTML
+
+        MathJax = {
+            tex: {
+                inlineMath: [
+                    ["$", "$"],
+                    ["\\(", "\\)"]
+                ]
+            }
+        };
+        // MathJax.texReset();
+        // MathJax.typesetClear();
+        // MathJax.typeset();
+        MathJax.typesetPromise()
+    }
+    // document.getElementById('txt').innerText = document.getElementById('app').innerText
+    // document.getElementById('txt').appendChild(document.createTextNode(document.getElementById('app').innerText))
+    document.getElementById('dummyTextArea').appendChild(document.createTextNode(document.getElementById('app').innerText + " "))
+
+
+
+
+
+</script>
+
+
+</html>

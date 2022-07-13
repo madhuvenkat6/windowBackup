@@ -1,0 +1,114 @@
+.editorStructure{
+ /* height: 500px; */
+ height: 100%;
+ display: flex;
+ width: 100%;
+}
+.file{
+  height: 100vh;
+  /* height: 400px; */
+  width: 12%;
+  /* border: 1px solid black; */
+  overflow-y: scroll;
+}
+
+.pythoneditor{
+    display: flex;
+    height: 100vh;
+    /* height: inherit; */
+    width: 90%;
+}
+#pythoneditorLeft,#pythoneditorRight{
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+#gap{
+  height: inherit;
+  width: 1%;
+  background-color: whitesmoke;
+  /* border: 1px solid red; */
+}
+
+#top{
+  width: inherit;
+  height: 5%;
+  /* border: 1px solid black; */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#bottom{
+  width: inherit;
+  height: 95%;
+  /* border: 1px solid black; */
+  box-sizing: border-box;
+}
+
+
+
+.pythonoutput{
+    width: inherit;
+    height: 100%;
+    /* background-color: #2e1128; */
+    background-color: black;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: white;
+     font-family: 'Roboto Mono', monospace;
+     box-sizing: border-box;
+}
+
+ .run{
+   height: 90%;
+   background: green;
+   color: white;
+   box-shadow: none;
+   margin-right: 5px;
+ }
+ .clear{
+  height: 90%;
+  background: red;
+  box-shadow: none;
+  color: white;
+  margin-right: 5px;
+}
+
+.tab{
+  border: 1px solid black;
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  /* direction: rtl; */
+}
+
+#tabsList{
+  /* width: 300px; */
+  border: 1px solid black;
+  display: flex;
+}
+
+
+/* width */
+.file::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.file::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+.file::-webkit-scrollbar-thumb {
+  background: gray; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}

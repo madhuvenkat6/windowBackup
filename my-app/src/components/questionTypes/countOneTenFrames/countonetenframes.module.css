@@ -1,0 +1,71 @@
+table{
+    border-collapse: collapse;
+    height: 200px;
+    width: 500px;
+    border: 1px solid black;
+}
+td,tr{
+    border:1px solid black;
+    padding: 0%;
+}
+td{
+    height: 100px;
+    width: 100px;
+}
+
+.choiceBox{
+    height: 50px;
+    width: 500px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10px;
+    margin-top: 10px;
+} 
+
+.button{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid black;
+    box-shadow: none;
+    background-color: white;
+    margin-right: 10px;
+}
+img{
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
+}
+
+.mainFrame{
+    width: 800px;
+    height: 100%;
+    border: 1px solid black;
+    text-align: left;
+    padding-left: 20px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+}
+
+.choices{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.outputBox{
+    height: 50px;
+    width: 500px;
+    border: 2px dashed green;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    align-items: center;
+}

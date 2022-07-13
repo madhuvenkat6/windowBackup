@@ -1,0 +1,7 @@
+.mq-replacable:hover{
+    cursor: pointer;
+    background-color: red;
+}
+.body{
+    background-color: aqua;
+}

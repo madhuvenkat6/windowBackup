@@ -1,0 +1,20 @@
+.cancle{
+    background: red;
+    border: none;
+    font-size: large;
+    font-weight: 300;
+    border-radius: 3%;
+    color: rgb(0, 0, 0);
+    height: 30px;
+
+}
+
+.sucess{
+    background: green;
+    border: none;
+    font-size: large;
+    font-weight: 300;
+    border-radius: 3%;
+    color: rgb(0, 0, 0);
+    height: 30px;
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.js"></script>
+</head>
+
+<body>
+    <!-- <p>Type math here: <span id="math-field"></span></p>
+    <p>LaTeX of what you typed: <span id="latex"></span></p> -->
+    <div id="preview" style="border: 1px solid black; min-height: 80px;"></div>
+    <br>
+    <div id="editor" style="border: 1px solid black; height: 100px; width: 100%; ">
+        <div style="border: 1px solid black; height: 30%;box-sizing:border-box">
+            <button onclick="openEditor()">Math Equation</button>
+        </div>
+        <textarea id="editorTextarea" oninput="call(event)"
+            style="height: 70px; width: 100%; box-sizing:border-box;"></textarea>
+    </div>
+    <!-- oninput="call(event)" -->
+    <div id="mathEditor" style="border: 1px solid black; height: 300px; width: 300px; visibility: hidden;">
+        <textarea id="mathTextArea" style="height: 90%; width: 100%; box-sizing:border-box"
+            oninput=" expression(event)"></textarea>
+        <div>
+            <button onclick="clicked('ok')">Ok</button>
+            <button onclick="clicked('cancle')">Cancle</button>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    let str = ""
+    var MQ = MathQuill.getInterface(2);
+
+
+    function insertMathMlStatic(data) {
+        var problemSpan = document.createElement('span')
+        problemSpan.innerHTML = data
+        MQ.StaticMath(problemSpan)
+        // var mathField =  MQ.MathField(problemSpan, {
+        //     spaceBehavesLikeTab: true, 
+        //     handlers: {
+        //         edit: function () {
+        //             console.log(mathField.latex())
+        //             //latexSpan.textContent = mathField.latex();
+        //         }
+        //     }
+        // })
+        document.getElementById('preview').appendChild(problemSpan)
+    }
+
+
+    function createMathMlSpan(data) {
+        var problemSpan = document.createElement('span')
+        problemSpan.innerHTML = data
+        MQ.StaticMath(problemSpan)
+        //MQ.MathField(problemSpan,)
+        return problemSpan;
+    }
+
+    function previewContent() {
+        let content = document.getElementById('editorTextarea').value;
+        document.getElementById('preview').innerHTML = null
+        let latex = "";
+        let textContent = "";
+        let isThere = false;
+
+        for (let i = 0; i < content.length; i++) {
+
+            if (content[i] === '$') {
+
+                let j = i + 1;
+                while (content[j] !== '$' && j < content.length) {
+                    latex += content[j]
+                    j++;
+                }
+                i = j;
+                document.getElementById('preview').append(textContent)
+                document.getElementById('preview').appendChild(createMathMlSpan(latex))
+                latex = ""
+                textContent = ""
+            } else {
+                textContent += content[i];
+            }
+        }
+        document.getElementById('preview').append(textContent);
+    }
+
+    function call(e) {
+        previewContent()
+    }
+
+    function openEditor() {
+        let isVisible = document.getElementById('mathEditor').style.visibility;
+        console.log('mathEditor', isVisible);
+        if (isVisible === 'hidden') {
+            document.getElementById('mathEditor').style.visibility = 'visible'
+        } else {
+            document.getElementById('mathEditor').style.visibility = 'hidden'
+        }
+
+    }
+
+
+    function clicked(isOk) {
+
+        let content = document.getElementById('editorTextarea').value;
+        if (isOk === 'ok') {
+            insertMathMlStatic(str)
+            document.getElementById('editorTextarea').value = content + '$' + str.trim(" ") + '$'
+        } else {
+            document.getElementById('mathEditor').style.visibility = 'hidden'
+            str = "";
+            document.getElementById('mathTextArea').value = ""
+        }
+
+        str = "";
+        document.getElementById('mathTextArea').value = ""
+    }
+
+    function expression(e) {
+        str = document.getElementById('mathTextArea').value;
+        str = str.split(" ").join("")
+    }
+
+</script>
